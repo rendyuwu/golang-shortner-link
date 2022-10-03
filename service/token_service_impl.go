@@ -4,8 +4,8 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/go-playground/validator/v10"
 	"github.com/rendyuwu/golang-shortner-link/constanta"
+	"github.com/rendyuwu/golang-shortner-link/exception"
 	"github.com/rendyuwu/golang-shortner-link/helper"
 	"github.com/rendyuwu/golang-shortner-link/model/domain"
 	"github.com/rendyuwu/golang-shortner-link/model/web"
@@ -15,14 +15,12 @@ import (
 type TokenServiceImpl struct {
 	TokenRepository repository.TokenRepository
 	DB              *sql.DB
-	Validate        *validator.Validate
 }
 
-func NewTokenService(tokenRepository repository.TokenRepository, DB *sql.DB, validate *validator.Validate) TokenService {
+func NewTokenService(tokenRepository repository.TokenRepository, DB *sql.DB) TokenService {
 	return &TokenServiceImpl{
 		TokenRepository: tokenRepository,
 		DB:              DB,
-		Validate:        validate,
 	}
 }
 
@@ -56,7 +54,9 @@ func (service *TokenServiceImpl) FindByToken(ctx context.Context, request string
 	defer helper.CommitOrRollback(tx)
 
 	token, err := service.TokenRepository.FindByToken(ctx, tx, request)
-	helper.PanicIfError(err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
 
 	return helper.ToTokenResponse(token)
 }
