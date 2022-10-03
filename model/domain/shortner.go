@@ -7,4 +7,5 @@ type Shortner struct {
 	Code       string
 	CustomCode sql.NullString
 	Url        string
+	Expired    int
 }

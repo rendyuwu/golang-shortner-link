@@ -19,7 +19,7 @@ func NewTokenRepository() TokenRepository {
 func (repository *TokenRepositoryImpl) Save(ctx context.Context, tx *sql.Tx) domain.Token {
 	var randomToken string
 	for {
-		randomToken = helper.RandomToken()
+		randomToken = helper.RandomToken(constanta.TOKEN_LENGTH)
 		_, err := repository.FindByToken(ctx, tx, randomToken)
 		if err == nil {
 			continue
