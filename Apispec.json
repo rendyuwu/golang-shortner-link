@@ -194,6 +194,14 @@
                                                 "url": {
                                                     "type": "string",
                                                     "example": "https://s.ngulik.my.id/qwtk6s"
+                                                },
+                                                "custom_url": {
+                                                    "type": "string",
+                                                    "example": "https://s.ngulik.my.id/custom"
+                                                },
+                                                "expired": {
+                                                    "type": "string",
+                                                    "example": "2021-08-15 14:30:45"
                                                 }
                                             }
                                         }
