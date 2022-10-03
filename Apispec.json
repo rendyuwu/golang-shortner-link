@@ -1,0 +1,448 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "API Shortner Link",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://s.ngulik.my.id/api/v1",
+            "description": "Staging V1 Server"
+        },
+        {
+            "url": "https://s.rendy.dev/api/v1",
+            "description": "Production V1 Server"
+        }
+    ],
+    "paths": {
+        "/:id": {
+            "get": {
+                "security": [
+                    {
+                        "Auth": []
+                    }
+                ],
+                "tags": [
+                    "Shortner Link API"
+                ],
+                "description": "Retrive original link",
+                "summary": "Retrive original link",
+                "responses": {
+                    "200": {
+                        "description": "Success get original link",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "URL": {
+                                                    "type": "string",
+                                                    "example": "https://www.google.com/ultra-long-url"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 400
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Bad Request"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 401
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Unauthorized Access"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 404
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 500
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/": {
+            "post": {
+                "security": [
+                    {
+                        "Auth": []
+                    }
+                ],
+                "tags": [
+                    "Shortner Link API"
+                ],
+                "description": "Short link",
+                "summary": "Short link",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "example": "https://www.google.com/ultra-long-url"
+                                    },
+                                    "custom": {
+                                        "type": "string",
+                                        "example": "custom-your-url(optional)",
+                                        "description": "Custom url like you want (optional)"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success short link",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "url": {
+                                                    "type": "string",
+                                                    "example": "https://s.ngulik.my.id/qwtk6s"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 400
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Bad Request"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 401
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Unauthorized Access"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 404
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Custom url already exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 409
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Custom url already exist"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 500
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/token": {
+            "post": {
+                "security": [
+                    {
+                        "Auth": []
+                    }
+                ],
+                "tags": [
+                    "Shortner Link API"
+                ],
+                "description": "Get access token",
+                "summary": "Get access token",
+                "responses": {
+                    "200": {
+                        "description": "Success get access token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "X-API-KEY": {
+                                                    "type": "string",
+                                                    "example": "vfHTOsG8bwqmMfYJ8FEp5khpPHPOmWlhfgqsEVzS9O75S86iMuykA9NZOJaV"
+                                                },
+                                                "expired": {
+                                                    "type": "string",
+                                                    "example": "2021-08-15 14:30:45"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 400
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Bad Request"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 401
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Unauthorized Access"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 404
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Not Found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 500
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Auth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-KEY",
+                "description": "Authentication for Shortner link API"
+            }
+        }
+    }
+}
