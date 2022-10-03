@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/rendyuwu/golang-shortner-link/constanta"
 	"github.com/rendyuwu/golang-shortner-link/helper"
 	"github.com/rendyuwu/golang-shortner-link/model/domain"
 )
@@ -16,21 +15,7 @@ func NewTokenRepository() TokenRepository {
 	return &TokenRepositoryImpl{}
 }
 
-func (repository *TokenRepositoryImpl) Save(ctx context.Context, tx *sql.Tx) domain.Token {
-	var randomToken string
-	for {
-		randomToken = helper.RandomToken(constanta.TOKEN_LENGTH)
-		_, err := repository.FindByToken(ctx, tx, randomToken)
-		if err == nil {
-			continue
-		}
-		break
-	}
-
-	token := domain.Token{
-		Token:   randomToken,
-		Expired: int(helper.AddTimestamp(constanta.TOKEN_EXPIRED)),
-	}
+func (repository *TokenRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, token domain.Token) domain.Token {
 	SQL := "INSERT INTO token(token, expired) VALUES(?,?)"
 	_, err := tx.ExecContext(ctx, SQL, token.Token, token.Expired)
 	helper.PanicIfError(err)

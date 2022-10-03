@@ -8,6 +8,6 @@ import (
 )
 
 type TokenRepository interface {
-	Save(ctx context.Context, tx *sql.Tx) domain.Token
+	Save(ctx context.Context, tx *sql.Tx, token domain.Token) domain.Token
 	FindByToken(ctx context.Context, tx *sql.Tx, token string) (domain.Token, error)
 }
