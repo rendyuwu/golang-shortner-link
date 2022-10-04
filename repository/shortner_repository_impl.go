@@ -54,3 +54,9 @@ func (repository *ShortnerRepositoryImpl) FindByCustomCode(ctx context.Context, 
 		return shortner, errors.New("custom code not found")
 	}
 }
+
+func (repository *ShortnerRepositoryImpl) Clear(ctx context.Context, tx *sql.Tx, timestamp int) {
+	SQL := "DELETE FROM shortner WHERE expired <= ?"
+	_, err := tx.QueryContext(ctx, SQL, timestamp)
+	helper.PanicIfError(err)
+}

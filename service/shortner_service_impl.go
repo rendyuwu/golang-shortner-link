@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"database/sql"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/rendyuwu/golang-shortner-link/constanta"
@@ -84,4 +85,14 @@ func (service *ShortnerServiceImpl) FindByCode(ctx context.Context, request stri
 		}
 		return helper.ToShortnerResponse(shortner)
 	}
+}
+
+func (service *ShortnerServiceImpl) Clear(ctx context.Context) {
+	timestamp := time.Now().Unix()
+
+	tx, err := service.DB.Begin()
+	helper.PanicIfError(err)
+	defer helper.CommitOrRollback(tx)
+
+	service.ShortnerRepository.Clear(ctx, tx, int(timestamp))
 }

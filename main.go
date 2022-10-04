@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -13,6 +14,7 @@ import (
 	"github.com/rendyuwu/golang-shortner-link/repository"
 	"github.com/rendyuwu/golang-shortner-link/router"
 	"github.com/rendyuwu/golang-shortner-link/service"
+	"github.com/rendyuwu/golang-shortner-link/worker"
 )
 
 func main() {
@@ -20,6 +22,7 @@ func main() {
 	env, err := env.NewEnv()
 	helper.PanicIfError(err)
 	db := app.NewDB(env)
+	ctx := context.Background()
 
 	tokenRepository := repository.NewTokenRepository()
 	shortnerRepository := repository.NewShortnerRepository()
@@ -36,6 +39,9 @@ func main() {
 		Addr:    "0.0.0.0:8888",
 		Handler: middleware.NewAuthMiddleware(router, tokenService),
 	}
+
+	// run cleaner
+	go worker.Cleaner(tokenService, shortnerService, ctx)
 
 	err = server.ListenAndServe()
 	helper.PanicIfError(err)

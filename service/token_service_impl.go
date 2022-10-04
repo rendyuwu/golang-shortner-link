@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"time"
 
 	"github.com/rendyuwu/golang-shortner-link/constanta"
 	"github.com/rendyuwu/golang-shortner-link/helper"
@@ -59,4 +60,14 @@ func (service *TokenServiceImpl) FindByToken(ctx context.Context, request string
 	} else {
 		return helper.ToTokenResponse(token), nil
 	}
+}
+
+func (service *TokenServiceImpl) Clear(ctx context.Context) {
+	timestamp := time.Now().Unix()
+
+	tx, err := service.DB.Begin()
+	helper.PanicIfError(err)
+	defer helper.CommitOrRollback(tx)
+
+	service.TokenRepository.Clear(ctx, tx, int(timestamp))
 }

@@ -38,3 +38,9 @@ func (repository *TokenRepositoryImpl) FindByToken(ctx context.Context, tx *sql.
 		return dataToken, errors.New("token not found")
 	}
 }
+
+func (repository *TokenRepositoryImpl) Clear(ctx context.Context, tx *sql.Tx, timestamp int) {
+	SQL := "DELETE FROM token WHERE expired <= ?"
+	_, err := tx.QueryContext(ctx, SQL, timestamp)
+	helper.PanicIfError(err)
+}
