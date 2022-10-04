@@ -47,14 +47,14 @@ func (service *ShortnerServiceImpl) Create(ctx context.Context, request web.Shor
 	}
 
 	// check if custom code exist
-	shortner, err := service.ShortnerRepository.FindByCustomCode(ctx, tx, request.CustomCode.String)
-	if err != nil {
-		panic(exception.NewAlreadyExistError(err.Error()))
+	shortner, err := service.ShortnerRepository.FindByCustomCode(ctx, tx, request.CustomCode)
+	if err == nil {
+		panic(exception.NewAlreadyExistError("custom code already exist"))
 	}
 
 	shortner = domain.Shortner{
 		Code:       randomCode,
-		CustomCode: request.CustomCode,
+		CustomCode: sql.NullString{String: request.CustomCode, Valid: true},
 		Url:        request.Url,
 		Expired:    int(helper.AddTimestamp(constanta.SHORTNER_EXPIRED)),
 	}

@@ -13,7 +13,8 @@ func NewRouter(tokenController controller.TokenController, shortnerController co
 	router.POST("/api/v1/token", tokenController.Create)
 
 	// route shortner
-	router.GET("/:code", shortnerController.Find)
+	// router.GET("/:code", shortnerController.Find)
+
 	router.GET("/api/v1/shortner/:code", shortnerController.FindByCode)
 	router.POST("/api/v1/shortner", shortnerController.Create)
 

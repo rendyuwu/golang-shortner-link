@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/rendyuwu/golang-shortner-link/app"
 	"github.com/rendyuwu/golang-shortner-link/controller"
 	"github.com/rendyuwu/golang-shortner-link/env"

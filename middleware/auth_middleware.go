@@ -18,6 +18,10 @@ func NewAuthMiddleware(handler http.Handler, tokenService service.TokenService) 
 }
 
 func (middleware *AuthMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if r.RequestURI == "/api/v1/token" {
+		middleware.Handler.ServeHTTP(w, r)
+		return
+	}
 	_, err := middleware.TokenService.FindByToken(r.Context(), r.Header.Get("X-API-KEY"))
 
 	if err == nil {

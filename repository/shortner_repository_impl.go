@@ -51,6 +51,6 @@ func (repository *ShortnerRepositoryImpl) FindByCustomCode(ctx context.Context, 
 		helper.PanicIfError(err)
 		return shortner, nil
 	} else {
-		return shortner, errors.New("custom code already exist")
+		return shortner, errors.New("custom code not found")
 	}
 }
