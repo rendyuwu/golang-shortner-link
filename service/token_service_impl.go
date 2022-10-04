@@ -3,9 +3,9 @@ package service
 import (
 	"context"
 	"database/sql"
+	"errors"
 
 	"github.com/rendyuwu/golang-shortner-link/constanta"
-	"github.com/rendyuwu/golang-shortner-link/exception"
 	"github.com/rendyuwu/golang-shortner-link/helper"
 	"github.com/rendyuwu/golang-shortner-link/model/domain"
 	"github.com/rendyuwu/golang-shortner-link/model/web"
@@ -48,15 +48,15 @@ func (service *TokenServiceImpl) Create(ctx context.Context) web.TokenResponse {
 	return helper.ToTokenResponse(token)
 }
 
-func (service *TokenServiceImpl) FindByToken(ctx context.Context, request string) web.TokenResponse {
+func (service *TokenServiceImpl) FindByToken(ctx context.Context, request string) (web.TokenResponse, error) {
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
 
 	token, err := service.TokenRepository.FindByToken(ctx, tx, request)
 	if err != nil {
-		panic(exception.NewNotFoundError(err.Error()))
+		return helper.ToTokenResponse(token), errors.New(err.Error())
+	} else {
+		return helper.ToTokenResponse(token), nil
 	}
-
-	return helper.ToTokenResponse(token)
 }

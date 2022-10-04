@@ -11,7 +11,7 @@ import (
 
 type ShortnerRepositoryImpl struct{}
 
-func NewSHortnerRepository() ShortnerRepository {
+func NewShortnerRepository() ShortnerRepository {
 	return &ShortnerRepositoryImpl{}
 }
 

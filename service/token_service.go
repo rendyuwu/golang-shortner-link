@@ -8,5 +8,5 @@ import (
 
 type TokenService interface {
 	Create(ctx context.Context) web.TokenResponse
-	FindByToken(ctx context.Context, request string) web.TokenResponse
+	FindByToken(ctx context.Context, request string) (web.TokenResponse, error)
 }
