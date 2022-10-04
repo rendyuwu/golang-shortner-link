@@ -36,7 +36,7 @@ func main() {
 	router := router.NewRouter(tokenController, shortnerController)
 
 	server := http.Server{
-		Addr:    "0.0.0.0:8888",
+		Addr:    "0.0.0.0:80",
 		Handler: middleware.NewAuthMiddleware(router, tokenService),
 	}
 
