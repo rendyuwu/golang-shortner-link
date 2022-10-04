@@ -71,4 +71,8 @@ go.work
 # Development
 .env
 
+# Production
+exec
+docker-compose.yml
+
 # End of https://www.toptal.com/developers/gitignore/api/go,visualstudiocode,linux
