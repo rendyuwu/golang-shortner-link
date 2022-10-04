@@ -15,7 +15,7 @@
         }
     ],
     "paths": {
-        "/:id": {
+        "/shortner/:id": {
             "get": {
                 "security": [
                     {
@@ -140,7 +140,7 @@
                 }
             }
         },
-        "/": {
+        "/shortner": {
             "post": {
                 "security": [
                     {
